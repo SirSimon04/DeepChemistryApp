@@ -17,8 +17,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
   List<DrawnLine> lines = <DrawnLine>[];
   Color selectedColor = Colors.black;
   double selectedWidth = 5.0;
-  DrawnLine line = DrawnLine([], Colors.black, 5.0);
-
+  DrawnLine line = DrawnLine([], Colors.black, 0.0);
   StreamController<List<DrawnLine>> linesStreamController =
       StreamController<List<DrawnLine>>.broadcast();
   StreamController<DrawnLine> currentLineStreamController =
@@ -33,7 +32,6 @@ class _DrawingScreenState extends State<DrawingScreen> {
   }
 
   void onPanStart(DragStartDetails details) {
-    print('User started drawing');
     final box = context.findRenderObject() as RenderBox;
     final point = box.globalToLocal(details.globalPosition);
     setState(() {
@@ -45,13 +43,21 @@ class _DrawingScreenState extends State<DrawingScreen> {
     final box = context.findRenderObject() as RenderBox;
     final point = box.globalToLocal(details.globalPosition);
     final List<Offset> path = List.from(line.path)..add(point);
+    line = DrawnLine(path, selectedColor, selectedWidth);
+
     setState(() {
-      line = DrawnLine(path, selectedColor, selectedWidth);
+      if (lines.length == 0) {
+        lines.add(line);
+      } else {
+        lines[lines.length - 1] = line;
+      }
     });
   }
 
   void onPanEnd(DragEndDetails details) {
-    print('User ended drawing');
+    setState(() {
+      lines.add(line);
+    });
   }
 
   GestureDetector buildCurrentPath(BuildContext context) {
@@ -65,7 +71,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: CustomPaint(
-            painter: Sketcher(lines: [line]),
+            painter: Sketcher(lines: lines),
           ),
           // CustomPaint widget will go here
         ),
@@ -73,9 +79,25 @@ class _DrawingScreenState extends State<DrawingScreen> {
     );
   }
 
-  // Widget buildAllPaths(BuildContext context) {
-  //   // TODO
-  // }
+  Widget buildAllPaths(BuildContext context) {
+    return RepaintBoundary(
+      key: _globalKey,
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: StreamBuilder<List<DrawnLine>>(
+          stream: linesStreamController.stream,
+          builder: (context, snapshot) {
+            return CustomPaint(
+              painter: Sketcher(
+                lines: lines,
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
   //
   // Widget buildStrokeToolbar() {
   //   // TODO
