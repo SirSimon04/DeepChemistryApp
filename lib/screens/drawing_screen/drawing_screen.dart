@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
+import 'package:flutter/services.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'dart:ui' as ui;
 import 'components/drawn_line.dart';
 import 'components/sketcher.dart';
 
@@ -13,7 +15,7 @@ class DrawingScreen extends StatefulWidget {
 }
 
 class _DrawingScreenState extends State<DrawingScreen> {
-  final GlobalKey _globalKey = new GlobalKey();
+  final GlobalKey _globalKey = GlobalKey();
   List<DrawnLine> lines = <DrawnLine>[];
   Color selectedColor = Colors.black;
   double selectedWidth = 5.0;
@@ -28,7 +30,10 @@ class _DrawingScreenState extends State<DrawingScreen> {
   }
 
   Future<void> clear() async {
-    // TODO
+    setState(() {
+      lines = [];
+      line = DrawnLine([], Colors.black, 0.0);
+    });
   }
 
   void onPanStart(DragStartDetails details) {
@@ -80,7 +85,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
   Widget buildAllPaths(BuildContext context) {
     return RepaintBoundary(
       key: _globalKey,
-      child: Container(
+      child: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: StreamBuilder<List<DrawnLine>>(
@@ -96,10 +101,6 @@ class _DrawingScreenState extends State<DrawingScreen> {
       ),
     );
   }
-  //
-  // Widget buildStrokeToolbar() {
-  //   // TODO
-  // }
 
   Widget buildStrokeButton(double strokeWidth) {
     return GestureDetector(
@@ -118,9 +119,26 @@ class _DrawingScreenState extends State<DrawingScreen> {
     );
   }
 
-  // Widget buildColorToolbar() {
-  //   // TODO
-  // }
+  Widget buildColorToolbar() {
+    return Positioned(
+      top: 40.0,
+      right: 10.0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          buildClearButton(),
+          const Divider(
+            height: 10.0,
+          ),
+          buildSaveButton(),
+          const Divider(
+            height: 20.0,
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget buildColorButton(Color color) {
     return Padding(
@@ -141,7 +159,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
   Widget buildSaveButton() {
     return GestureDetector(
       onTap: save,
-      child: CircleAvatar(
+      child: const CircleAvatar(
         child: Icon(
           Icons.save,
           size: 20.0,
@@ -154,7 +172,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
   Widget buildClearButton() {
     return GestureDetector(
       onTap: clear,
-      child: CircleAvatar(
+      child: const CircleAvatar(
         child: Icon(
           Icons.create,
           size: 20.0,
@@ -172,6 +190,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
         children: [
           buildAllPaths(context),
           buildCurrentPath(context),
+          buildColorToolbar()
         ],
       ),
     );
