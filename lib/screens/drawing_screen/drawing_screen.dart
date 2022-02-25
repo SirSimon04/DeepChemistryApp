@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import 'components/drawn_line.dart';
+import 'components/sketcher.dart';
 
 class DrawingScreen extends StatefulWidget {
   const DrawingScreen({Key? key}) : super(key: key);
@@ -14,9 +15,9 @@ class DrawingScreen extends StatefulWidget {
 class _DrawingScreenState extends State<DrawingScreen> {
   final GlobalKey _globalKey = new GlobalKey();
   List<DrawnLine> lines = <DrawnLine>[];
-  late DrawnLine line;
   Color selectedColor = Colors.black;
   double selectedWidth = 5.0;
+  DrawnLine line = DrawnLine([], Colors.black, 5.0);
 
   StreamController<List<DrawnLine>> linesStreamController =
       StreamController<List<DrawnLine>>.broadcast();
@@ -35,13 +36,18 @@ class _DrawingScreenState extends State<DrawingScreen> {
     print('User started drawing');
     final box = context.findRenderObject() as RenderBox;
     final point = box.globalToLocal(details.globalPosition);
-    print(point);
+    setState(() {
+      line = DrawnLine([point], selectedColor, selectedWidth);
+    });
   }
 
   void onPanUpdate(DragUpdateDetails details) {
     final box = context.findRenderObject() as RenderBox;
     final point = box.globalToLocal(details.globalPosition);
-    print(point);
+    final List<Offset> path = List.from(line.path)..add(point);
+    setState(() {
+      line = DrawnLine(path, selectedColor, selectedWidth);
+    });
   }
 
   void onPanEnd(DragEndDetails details) {
@@ -58,6 +64,9 @@ class _DrawingScreenState extends State<DrawingScreen> {
           color: Colors.transparent,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
+          child: CustomPaint(
+            painter: Sketcher(lines: [line]),
+          ),
           // CustomPaint widget will go here
         ),
       ),
