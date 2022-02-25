@@ -34,9 +34,8 @@ class _DrawingScreenState extends State<DrawingScreen> {
   void onPanStart(DragStartDetails details) {
     final box = context.findRenderObject() as RenderBox;
     final point = box.globalToLocal(details.globalPosition);
-    setState(() {
-      line = DrawnLine([point], selectedColor, selectedWidth);
-    });
+    line = DrawnLine([point], selectedColor, selectedWidth);
+    currentLineStreamController.add(line);
   }
 
   void onPanUpdate(DragUpdateDetails details) {
@@ -45,19 +44,12 @@ class _DrawingScreenState extends State<DrawingScreen> {
     final List<Offset> path = List.from(line.path)..add(point);
     line = DrawnLine(path, selectedColor, selectedWidth);
 
-    setState(() {
-      if (lines.length == 0) {
-        lines.add(line);
-      } else {
-        lines[lines.length - 1] = line;
-      }
-    });
+    currentLineStreamController.add(line);
   }
 
   void onPanEnd(DragEndDetails details) {
-    setState(() {
-      lines.add(line);
-    });
+    lines = List.from(lines)..add(line);
+    linesStreamController.add(lines);
   }
 
   GestureDetector buildCurrentPath(BuildContext context) {
@@ -70,10 +62,16 @@ class _DrawingScreenState extends State<DrawingScreen> {
           color: Colors.transparent,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          child: CustomPaint(
-            painter: Sketcher(lines: lines),
+          child: StreamBuilder<DrawnLine>(
+            stream: currentLineStreamController.stream,
+            builder: (context, snapshot) {
+              return CustomPaint(
+                painter: Sketcher(
+                  lines: [line],
+                ),
+              );
+            },
           ),
-          // CustomPaint widget will go here
         ),
       ),
     );
@@ -172,6 +170,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
       backgroundColor: Colors.yellow[50],
       body: Stack(
         children: [
+          buildAllPaths(context),
           buildCurrentPath(context),
         ],
       ),
