@@ -7,6 +7,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'dart:ui' as ui;
 import 'components/drawn_line.dart';
 import 'components/sketcher.dart';
+import "package:screenshot/screenshot.dart";
 
 class DrawingScreen extends StatefulWidget {
   const DrawingScreen({Key? key}) : super(key: key);
@@ -25,24 +26,19 @@ class _DrawingScreenState extends State<DrawingScreen> {
       StreamController<List<DrawnLine>>.broadcast();
   StreamController<DrawnLine> currentLineStreamController =
       StreamController<DrawnLine>.broadcast();
+  ScreenshotController screenshotController = ScreenshotController();
 
   Future<void> save() async {
     try {
-      RenderRepaintBoundary boundary = _globalKey.currentContext
-          ?.findRenderObject() as RenderRepaintBoundary;
-      ui.Image image = await boundary.toImage();
-      ByteData? byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
-      Uint8List pngBytes = byteData!.buffer.asUint8List();
-      var saved = await ImageGallerySaver.saveImage(
-        pngBytes,
+      Uint8List image = await screenshotController.capture() ?? Uint8List(0);
+
+      await ImageGallerySaver.saveImage(
+        image,
         quality: 100,
         name: DateTime.now().toIso8601String() + ".png",
         isReturnImagePathOfIOS: true,
       );
-      print(saved);
     } catch (e) {
-      print("error while saving");
       print(e);
     }
   }
@@ -202,14 +198,17 @@ class _DrawingScreenState extends State<DrawingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.yellow[50],
-      body: Stack(
-        children: [
-          buildAllPaths(context),
-          buildCurrentPath(context),
-          buildColorToolbar()
-        ],
+    return Screenshot(
+      controller: screenshotController,
+      child: Container(
+        color: Colors.yellow[50],
+        child: Stack(
+          children: [
+            buildAllPaths(context),
+            buildCurrentPath(context),
+            buildColorToolbar()
+          ],
+        ),
       ),
     );
   }
