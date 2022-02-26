@@ -12,10 +12,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: "DeepChemistry",
       debugShowCheckedModeBanner: false,
-      home: MyApp(),
+      theme: ThemeData.dark(),
+      home: const MyApp(),
     );
   }
 }
