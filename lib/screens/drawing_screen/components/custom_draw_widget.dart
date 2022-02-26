@@ -12,10 +12,10 @@ class CustomDrawingWidget extends StatefulWidget {
   const CustomDrawingWidget({Key? key}) : super(key: key);
 
   @override
-  _CustomDrawingWidgetState createState() => _CustomDrawingWidgetState();
+  CustomDrawingWidgetState createState() => CustomDrawingWidgetState();
 }
 
-class _CustomDrawingWidgetState extends State<CustomDrawingWidget> {
+class CustomDrawingWidgetState extends State<CustomDrawingWidget> {
   final GlobalKey _globalKey = GlobalKey();
   List<DrawnLine> lines = <DrawnLine>[];
   Color selectedColor = Colors.black;
@@ -27,6 +27,10 @@ class _CustomDrawingWidgetState extends State<CustomDrawingWidget> {
       StreamController<DrawnLine>.broadcast();
   ScreenshotController screenshotController = ScreenshotController();
 
+  void printSomething() {
+    print("Moin");
+  }
+
   Future<void> save() async {
     try {
       Uint8List image = await screenshotController.capture() ?? Uint8List(0);
@@ -37,6 +41,7 @@ class _CustomDrawingWidgetState extends State<CustomDrawingWidget> {
         name: DateTime.now().toIso8601String() + ".png",
         isReturnImagePathOfIOS: true,
       );
+      clear();
     } catch (e) {
       print(e);
     }
@@ -115,99 +120,104 @@ class _CustomDrawingWidgetState extends State<CustomDrawingWidget> {
     );
   }
 
-  Widget buildStrokeButton(double strokeWidth) {
-    return GestureDetector(
-      onTap: () {
-        selectedWidth = strokeWidth;
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Container(
-          width: strokeWidth * 2,
-          height: strokeWidth * 2,
-          decoration: BoxDecoration(
-              color: selectedColor, borderRadius: BorderRadius.circular(20.0)),
-        ),
-      ),
-    );
-  }
-
-  Widget buildColorToolbar() {
-    return Positioned(
-      top: 40.0,
-      right: 10.0,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          buildClearButton(),
-          const Divider(
-            height: 10.0,
-          ),
-          buildSaveButton(),
-          const Divider(
-            height: 20.0,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget buildColorButton(Color color) {
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: FloatingActionButton(
-        mini: true,
-        backgroundColor: color,
-        child: Container(),
-        onPressed: () {
-          setState(() {
-            selectedColor = color;
-          });
-        },
-      ),
-    );
-  }
-
-  Widget buildSaveButton() {
-    return GestureDetector(
-      onTap: save,
-      child: const CircleAvatar(
-        child: Icon(
-          Icons.save,
-          size: 20.0,
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
-
-  Widget buildClearButton() {
-    return GestureDetector(
-      onTap: clear,
-      child: const CircleAvatar(
-        child: Icon(
-          Icons.create,
-          size: 20.0,
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
+  // Widget buildStrokeButton(double strokeWidth) {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       selectedWidth = strokeWidth;
+  //     },
+  //     child: Padding(
+  //       padding: const EdgeInsets.all(4.0),
+  //       child: Container(
+  //         width: strokeWidth * 2,
+  //         height: strokeWidth * 2,
+  //         decoration: BoxDecoration(
+  //             color: selectedColor, borderRadius: BorderRadius.circular(20.0)),
+  //       ),
+  //     ),
+  //   );
+  // }
+  //
+  // Widget buildColorToolbar() {
+  //   return Positioned(
+  //     top: 40.0,
+  //     right: 10.0,
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.center,
+  //       mainAxisAlignment: MainAxisAlignment.start,
+  //       children: [
+  //         buildClearButton(),
+  //         const Divider(
+  //           height: 10.0,
+  //         ),
+  //         buildSaveButton(),
+  //         const Divider(
+  //           height: 20.0,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+  //
+  // Widget buildColorButton(Color color) {
+  //   return Padding(
+  //     padding: const EdgeInsets.all(4.0),
+  //     child: FloatingActionButton(
+  //       mini: true,
+  //       backgroundColor: color,
+  //       child: Container(),
+  //       onPressed: () {
+  //         setState(() {
+  //           selectedColor = color;
+  //         });
+  //       },
+  //     ),
+  //   );
+  // }
+  //
+  // Widget buildSaveButton() {
+  //   return GestureDetector(
+  //     onTap: save,
+  //     child: const CircleAvatar(
+  //       child: Icon(
+  //         Icons.save,
+  //         size: 20.0,
+  //         color: Colors.white,
+  //       ),
+  //     ),
+  //   );
+  // }
+  //
+  // Widget buildClearButton() {
+  //   return GestureDetector(
+  //     onTap: clear,
+  //     child: const CircleAvatar(
+  //       child: Icon(
+  //         Icons.create,
+  //         size: 20.0,
+  //         color: Colors.white,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Screenshot(
       controller: screenshotController,
-      child: Container(
-        color: Colors.yellow[50],
-        child: Stack(
-          children: [
-            buildAllPaths(context),
-            buildCurrentPath(context),
-            buildColorToolbar()
-          ],
-        ),
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return Container(
+            // height: constraints.maxHeight,
+            // width: constraints.maxWidth,
+            color: Colors.yellow[50],
+            child: Stack(
+              children: [
+                buildAllPaths(context),
+                buildCurrentPath(context),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

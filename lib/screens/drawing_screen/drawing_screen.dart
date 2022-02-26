@@ -16,6 +16,9 @@ class DrawingScreen extends StatefulWidget {
 }
 
 class _DrawingScreenState extends State<DrawingScreen> {
+  final GlobalKey<CustomDrawingWidgetState> _customDrawingWidgetStateKey =
+      GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,23 +28,37 @@ class _DrawingScreenState extends State<DrawingScreen> {
           "Zeichne etwas",
           style: TextStyle(color: Colors.white),
         ),
+        actions: [
+          IconButton(
+            onPressed: () => _customDrawingWidgetStateKey.currentState!.clear(),
+            icon: const Icon(Icons.delete),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        child: const Icon(Icons.save),
+        onPressed: () => _customDrawingWidgetStateKey.currentState!.save(),
       ),
       body: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
+        print(constraints.maxWidth / 2);
+        print(constraints.maxHeight / 2);
         return Column(
           children: [
-            SizedBox(
-              height: constraints.maxHeight / 2,
-              child: const Image(
-                image: AssetImage("assets/formulas/24-Dimethylpentan.jpg"),
-              ),
+            const Image(
+              image: AssetImage("assets/formulas/24-Dimethylpentan.jpg"),
             ),
             SizedBox(
-                height: constraints.maxHeight / 2,
-                child: const CustomDrawingWidget()),
+              // height: constraints.maxHeight > constraints.maxWidth
+              //     ? constraints.maxWidth
+              //     : constraints.maxHeight,
+              // width: constraints.maxHeight > constraints.maxWidth
+              //     ? constraints.maxWidth
+              //     : constraints.maxHeight,
+              child: CustomDrawingWidget(
+                key: _customDrawingWidgetStateKey,
+              ),
+            ),
           ],
         );
       }),
