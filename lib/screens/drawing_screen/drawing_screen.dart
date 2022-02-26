@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -26,7 +27,24 @@ class _DrawingScreenState extends State<DrawingScreen> {
       StreamController<DrawnLine>.broadcast();
 
   Future<void> save() async {
-    // TODO
+    try {
+      RenderRepaintBoundary boundary = _globalKey.currentContext
+          ?.findRenderObject() as RenderRepaintBoundary;
+      ui.Image image = await boundary.toImage();
+      ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List pngBytes = byteData!.buffer.asUint8List();
+      var saved = await ImageGallerySaver.saveImage(
+        pngBytes,
+        quality: 100,
+        name: DateTime.now().toIso8601String() + ".png",
+        isReturnImagePathOfIOS: true,
+      );
+      print(saved);
+    } catch (e) {
+      print("error while saving");
+      print(e);
+    }
   }
 
   Future<void> clear() async {
