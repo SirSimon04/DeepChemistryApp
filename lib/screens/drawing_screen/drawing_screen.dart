@@ -26,7 +26,25 @@ class _DrawingScreenState extends State<DrawingScreen> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-      body: const CustomDrawingWidget(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+      ),
+      body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+        return Column(
+          children: [
+            SizedBox(
+              height: constraints.maxHeight / 2,
+              child: const Image(
+                image: AssetImage("assets/formulas/24-Dimethylpentan.jpg"),
+              ),
+            ),
+            SizedBox(
+                height: constraints.maxHeight / 2,
+                child: const CustomDrawingWidget()),
+          ],
+        );
+      }),
     );
   }
 }

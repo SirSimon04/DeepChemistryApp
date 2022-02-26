@@ -19,7 +19,7 @@ class _CustomDrawingWidgetState extends State<CustomDrawingWidget> {
   final GlobalKey _globalKey = GlobalKey();
   List<DrawnLine> lines = <DrawnLine>[];
   Color selectedColor = Colors.black;
-  double selectedWidth = 5.0;
+  double selectedWidth = 20.0;
   DrawnLine line = DrawnLine([], Colors.black, 0.0);
   StreamController<List<DrawnLine>> linesStreamController =
       StreamController<List<DrawnLine>>.broadcast();
