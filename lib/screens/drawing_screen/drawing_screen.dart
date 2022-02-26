@@ -39,29 +39,27 @@ class _DrawingScreenState extends State<DrawingScreen> {
         child: const Icon(Icons.save),
         onPressed: () => _customDrawingWidgetStateKey.currentState!.save(),
       ),
-      body: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-        print(constraints.maxWidth / 2);
-        print(constraints.maxHeight / 2);
-        return Column(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            const Image(
-              image: AssetImage("assets/formulas/24-Dimethylpentan.jpg"),
+            const Expanded(
+              child: Image(
+                image: AssetImage("assets/formulas/24-Dimethylpentan.jpg"),
+              ),
             ),
-            SizedBox(
-              // height: constraints.maxHeight > constraints.maxWidth
-              //     ? constraints.maxWidth
-              //     : constraints.maxHeight,
-              // width: constraints.maxHeight > constraints.maxWidth
-              //     ? constraints.maxWidth
-              //     : constraints.maxHeight,
-              child: CustomDrawingWidget(
-                key: _customDrawingWidgetStateKey,
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 1,
+                child: CustomDrawingWidget(
+                  key: _customDrawingWidgetStateKey,
+                ),
               ),
             ),
           ],
-        );
-      }),
+        ),
+      ),
     );
   }
 }
