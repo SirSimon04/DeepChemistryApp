@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -18,6 +19,48 @@ class DrawingScreen extends StatefulWidget {
 class _DrawingScreenState extends State<DrawingScreen> {
   final GlobalKey<CustomDrawingWidgetState> _customDrawingWidgetStateKey =
       GlobalKey();
+
+  String curImage = "assets/formulas/2-Methylbutan.jpg";
+
+  List<String> formulas = [
+    "assets/formulas/2-Methylbutan.jpg",
+    "assets/formulas/2-Methylhexan.jpg",
+    "assets/formulas/2-Methylpentan.jpg",
+    "assets/formulas/2-Methylpropan.jpg",
+    "assets/formulas/3-Ethylpentan.jpg",
+    "assets/formulas/3-Methylhexan.jpg",
+    "assets/formulas/3-Methylpentan.jpg",
+    "assets/formulas/22-Dimethylbutan.jpg",
+    "assets/formulas/22-Dimethylpentan.jpg",
+    "assets/formulas/22-Dimethylpropan.jpg",
+    "assets/formulas/23-Dimethylbutan.jpg",
+    "assets/formulas/23-Dimethylpentan.jpg",
+    "assets/formulas/24-Dimethylpentan.jpg",
+    "assets/formulas/33-Dimethylpentan.jpg",
+    "assets/formulas/223-Trimethylbutan.jpg",
+    "assets/formulas/Butan.jpg",
+    "assets/formulas/Ethan.jpg",
+    "assets/formulas/Heptan.jpg",
+    "assets/formulas/Hexan.jpg",
+    "assets/formulas/Pentan.jpg",
+    "assets/formulas/Propan.jpg",
+  ];
+
+  void updateImage() {
+    int min = 0;
+    int max = formulas.length - 1;
+    Random rnd = Random();
+    int r = min + rnd.nextInt(max - min);
+    setState(() {
+      curImage = formulas[r].toString();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    updateImage();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +87,9 @@ class _DrawingScreenState extends State<DrawingScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            const Expanded(
+            Expanded(
               child: Image(
-                image: AssetImage("assets/formulas/24-Dimethylpentan.jpg"),
+                image: AssetImage(curImage),
               ),
             ),
             Expanded(
