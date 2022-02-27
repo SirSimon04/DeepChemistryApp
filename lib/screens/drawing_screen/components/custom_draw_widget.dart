@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_deep_chemistry/screens/drawing_screen/components/sketcher.dart';
+import 'package:flutter_deep_chemistry/services/http.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import "package:screenshot/screenshot.dart";
 
@@ -27,6 +28,8 @@ class CustomDrawingWidgetState extends State<CustomDrawingWidget> {
       StreamController<DrawnLine>.broadcast();
   ScreenshotController screenshotController = ScreenshotController();
 
+  HttpHelper http = HttpHelper();
+
   void printSomething() {
     print("Moin");
   }
@@ -35,12 +38,14 @@ class CustomDrawingWidgetState extends State<CustomDrawingWidget> {
     try {
       Uint8List image = await screenshotController.capture() ?? Uint8List(0);
 
-      await ImageGallerySaver.saveImage(
-        image,
-        quality: 100,
-        name: DateTime.now().toIso8601String() + ".png",
-        isReturnImagePathOfIOS: true,
-      );
+      http.uploadImage(image: image, filename: "filename.jpg");
+
+      // await ImageGallerySaver.saveImage(
+      //   image,
+      //   quality: 100,
+      //   name: DateTime.now().toIso8601String() + ".png",
+      //   isReturnImagePathOfIOS: true,
+      // );
       clear();
     } catch (e) {
       print(e);
