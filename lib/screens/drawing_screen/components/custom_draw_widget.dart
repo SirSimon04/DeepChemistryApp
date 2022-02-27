@@ -10,7 +10,9 @@ import "package:screenshot/screenshot.dart";
 import 'drawn_line.dart';
 
 class CustomDrawingWidget extends StatefulWidget {
-  const CustomDrawingWidget({Key? key}) : super(key: key);
+  final String curImage;
+  const CustomDrawingWidget({Key? key, required this.curImage})
+      : super(key: key);
 
   @override
   CustomDrawingWidgetState createState() => CustomDrawingWidgetState();
@@ -38,14 +40,8 @@ class CustomDrawingWidgetState extends State<CustomDrawingWidget> {
     try {
       Uint8List image = await screenshotController.capture() ?? Uint8List(0);
 
-      http.uploadImage(image: image, filename: "filename.jpg");
+      await http.uploadImage(image: image, filename: widget.curImage);
 
-      // await ImageGallerySaver.saveImage(
-      //   image,
-      //   quality: 100,
-      //   name: DateTime.now().toIso8601String() + ".png",
-      //   isReturnImagePathOfIOS: true,
-      // );
       clear();
     } catch (e) {
       print(e);

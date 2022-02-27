@@ -80,7 +80,11 @@ class _DrawingScreenState extends State<DrawingScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.save),
-        onPressed: () => _customDrawingWidgetStateKey.currentState!.save(),
+        onPressed: () async {
+          //TODO: add loading indicator
+          await _customDrawingWidgetStateKey.currentState!.save();
+          updateImage();
+        },
       ),
       body: Center(
         child: Column(
@@ -97,6 +101,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
                 aspectRatio: 1,
                 child: CustomDrawingWidget(
                   key: _customDrawingWidgetStateKey,
+                  curImage: curImage.substring(16),
                 ),
               ),
             ),

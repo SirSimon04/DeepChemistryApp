@@ -19,7 +19,7 @@ class HttpHelper {
         "0",
         http.ByteStream.fromBytes(image),
         image.lengthInBytes,
-        filename: "moin.jpg",
+        filename: filename,
       ),
     );
 
