@@ -8,7 +8,7 @@ class HttpHelper {
   Future<void> uploadImage(
       {required Uint8List image, required String filename}) async {
     final request = http.MultipartRequest(
-        "POST", Uri.parse("http://219d-84-191-203-1.ngrok.io/upload"));
+        "POST", Uri.parse("http://synologynas-simon.ddns.net:5555/upload"));
 
     final headers = {
       "Content-type": "multipart/form-data",
