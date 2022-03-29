@@ -22,7 +22,7 @@ class CustomDrawingWidgetState extends State<CustomDrawingWidget> {
   final GlobalKey _globalKey = GlobalKey();
   List<DrawnLine> lines = <DrawnLine>[];
   Color selectedColor = Colors.black;
-  double selectedWidth = 20.0;
+  double selectedWidth = 15.0;
   DrawnLine line = DrawnLine([], Colors.black, 0.0);
   StreamController<List<DrawnLine>> linesStreamController =
       StreamController<List<DrawnLine>>.broadcast();
@@ -31,10 +31,6 @@ class CustomDrawingWidgetState extends State<CustomDrawingWidget> {
   ScreenshotController screenshotController = ScreenshotController();
 
   HttpHelper http = HttpHelper();
-
-  void printSomething() {
-    print("Moin");
-  }
 
   Future<void> save() async {
     try {

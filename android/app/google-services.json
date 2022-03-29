@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "989831340077",
+    "project_id": "deepchemistry-c8d47",
+    "storage_bucket": "deepchemistry-c8d47.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:989831340077:android:161189fc385d38ea8698a4",
+        "android_client_info": {
+          "package_name": "com.simonengel.flutter_deep_chemistry"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "989831340077-olnf3j49b7vl7qqeln647ag17artba1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXtdc2mlXno-7VLT1ynzb47aSJy1k3Lys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "989831340077-olnf3j49b7vl7qqeln647ag17artba1b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "989831340077-4g2qfg5mojb1b3l911h54cp6e8ke1jq0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.simonengel.deep-chemistry"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
