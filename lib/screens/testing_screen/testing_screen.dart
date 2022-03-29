@@ -39,7 +39,6 @@ class _TestingScreenState extends State<TestingScreen> {
             color: Colors.blue,
             child: MaterialButton(
               onPressed: () {
-                print("pressed");
                 _customDrawingWidgetStateKey.currentState!.evaluate();
               },
               minWidth: MediaQuery.of(context).size.width * 0.6,

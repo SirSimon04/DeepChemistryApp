@@ -122,15 +122,19 @@ class _DrawingScreenState extends State<DrawingScreen> {
               ],
             ),
           ),
-          Container(
-            child: _isLoading ? const Loader() : Container(),
-          ),
           Positioned(
             bottom: 95,
             right: 10,
             child: FloatingActionButton(
-              onPressed: () =>
-                  _customDrawingWidgetStateKey.currentState!.save(),
+              onPressed: () async {
+                setState(() {
+                  _isLoading = true;
+                });
+                await _customDrawingWidgetStateKey.currentState!.save();
+                setState(() {
+                  _isLoading = false;
+                });
+              },
               child: Icon(
                 context.platformIcon(
                   material: Icons.save,
@@ -138,13 +142,10 @@ class _DrawingScreenState extends State<DrawingScreen> {
                 ),
               ),
             ),
-            // child: PlatformButton(
-            //   onPressed: () => print('send'),
-            //   child: PlatformText('Send'),
-            //   materialFlat: (_, __) => MaterialFlatButtonData(),
-            //   cupertinoFilled: (_, __) => CupertinoFilledButtonData(),
-            // ),
-          )
+          ),
+          Container(
+            child: _isLoading ? const Loader() : Container(),
+          ),
         ],
       ),
     );
