@@ -22,6 +22,8 @@ class _DrawingScreenState extends State<DrawingScreen> {
 
   String curImage = "assets/formulas/2-Methylbutan.jpg";
 
+  bool isLoading = false;
+
   List<String> formulas = [
     "assets/formulas/2-Methylbutan.jpg",
     "assets/formulas/2-Methylhexan.jpg",
