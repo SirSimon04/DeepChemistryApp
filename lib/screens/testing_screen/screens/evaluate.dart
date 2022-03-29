@@ -19,6 +19,9 @@ class _EvaluateScreenState extends State<EvaluateScreen> {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
+      appBar: PlatformAppBar(
+        title: const Text("Ergebnis"),
+      ),
       // appBar: AppBar(
       //   title: const Text(
       //     "Ergebnis",

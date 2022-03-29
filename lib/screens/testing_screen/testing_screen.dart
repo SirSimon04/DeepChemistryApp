@@ -15,13 +15,9 @@ class _TestingScreenState extends State<TestingScreen> {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   title: const Text(
-      //     "Ausprobieren",
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      // ),
+      appBar: PlatformAppBar(
+        title: const Text("Ausprobieren"),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

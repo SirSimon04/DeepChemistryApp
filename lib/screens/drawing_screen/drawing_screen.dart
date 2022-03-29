@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_deep_chemistry/screens/drawing_screen/components/custom_draw_widget.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -62,19 +63,33 @@ class _DrawingScreenState extends State<DrawingScreen> {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   title: const Text(
-      //     "Zeichne etwas",
-      //     style: TextStyle(color: Colors.white),
-      //   ),
-      //   actions: [
-      //     IconButton(
-      //       onPressed: () => _customDrawingWidgetStateKey.currentState!.clear(),
-      //       icon: const Icon(Icons.delete),
-      //     )
-      //   ],
-      // ),
+      appBar: PlatformAppBar(
+        title: const Text("Zeichne etwas"),
+        trailingActions: [
+          PlatformIconButton(
+            onPressed: () => _customDrawingWidgetStateKey.currentState!.clear(),
+            materialIcon: const Icon(Icons.delete),
+            cupertinoIcon: const Icon(CupertinoIcons.delete),
+          ),
+        ],
+      ),
+      material: (_, __) => MaterialScaffoldData(
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.save),
+          onPressed: () async {
+            //TODO: add loading indicator
+            setState(() {
+              _isLoading = true;
+            });
+            await _customDrawingWidgetStateKey.currentState!.save();
+            updateImage();
+            setState(() {
+              _isLoading = false;
+            });
+          },
+        ),
+      ),
+      cupertino: (_, __) => CupertinoPageScaffoldData(),
       // floatingActionButton: FloatingActionButton(
       //   child: const Icon(Icons.save),
       //   onPressed: () async {
@@ -93,7 +108,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
         children: [
           Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
