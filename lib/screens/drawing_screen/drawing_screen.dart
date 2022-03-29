@@ -66,18 +66,26 @@ class _DrawingScreenState extends State<DrawingScreen> {
       appBar: PlatformAppBar(
         title: const Text("Zeichne etwas"),
         trailingActions: [
-          PlatformIconButton(
-            onPressed: () => _customDrawingWidgetStateKey.currentState!.clear(),
-            materialIcon: const Icon(Icons.delete),
-            cupertinoIcon: const Icon(CupertinoIcons.delete),
+          GestureDetector(
+            onTap: () => _customDrawingWidgetStateKey.currentState!.clear(),
+            child: Icon(
+              context.platformIcon(
+                material: Icons.delete,
+                cupertino: Icons.delete,
+              ),
+            ),
           ),
+          // PlatformIconButton(
+          //   onPressed: () => _customDrawingWidgetStateKey.currentState!.clear(),
+          //   materialIcon: const Icon(Icons.delete),
+          //   cupertinoIcon: const Icon(CupertinoIcons.delete),
+          // ),
         ],
       ),
       material: (_, __) => MaterialScaffoldData(
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.save),
           onPressed: () async {
-            //TODO: add loading indicator
             setState(() {
               _isLoading = true;
             });
@@ -90,20 +98,6 @@ class _DrawingScreenState extends State<DrawingScreen> {
         ),
       ),
       cupertino: (_, __) => CupertinoPageScaffoldData(),
-      // floatingActionButton: FloatingActionButton(
-      //   child: const Icon(Icons.save),
-      //   onPressed: () async {
-      //     //TODO: add loading indicator
-      //     setState(() {
-      //       _isLoading = true;
-      //     });
-      //     await _customDrawingWidgetStateKey.currentState!.save();
-      //     updateImage();
-      //     setState(() {
-      //       _isLoading = false;
-      //     });
-      //   },
-      // ),
       body: Stack(
         children: [
           Center(
