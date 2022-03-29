@@ -125,6 +125,26 @@ class _DrawingScreenState extends State<DrawingScreen> {
           Container(
             child: _isLoading ? const Loader() : Container(),
           ),
+          Positioned(
+            bottom: 95,
+            right: 10,
+            child: FloatingActionButton(
+              onPressed: () =>
+                  _customDrawingWidgetStateKey.currentState!.save(),
+              child: Icon(
+                context.platformIcon(
+                  material: Icons.save,
+                  cupertino: CupertinoIcons.cloud_upload_fill,
+                ),
+              ),
+            ),
+            // child: PlatformButton(
+            //   onPressed: () => print('send'),
+            //   child: PlatformText('Send'),
+            //   materialFlat: (_, __) => MaterialFlatButtonData(),
+            //   cupertinoFilled: (_, __) => CupertinoFilledButtonData(),
+            // ),
+          )
         ],
       ),
     );
