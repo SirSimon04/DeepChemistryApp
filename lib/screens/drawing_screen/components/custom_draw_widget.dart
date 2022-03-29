@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:typed_data';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_deep_chemistry/screens/drawing_screen/components/sketcher.dart';
+import 'package:flutter_deep_chemistry/screens/testing_screen/screens/evaluate.dart';
 import 'package:flutter_deep_chemistry/services/http.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import "package:screenshot/screenshot.dart";
@@ -11,8 +13,7 @@ import 'drawn_line.dart';
 
 class CustomDrawingWidget extends StatefulWidget {
   final String curImage;
-  const CustomDrawingWidget({Key? key, required this.curImage})
-      : super(key: key);
+  const CustomDrawingWidget({Key? key, this.curImage = ""}) : super(key: key);
 
   @override
   CustomDrawingWidgetState createState() => CustomDrawingWidgetState();
@@ -42,6 +43,19 @@ class CustomDrawingWidgetState extends State<CustomDrawingWidget> {
     } catch (e) {
       print(e);
     }
+  }
+
+  Future<void> evaluate() async {
+    Uint8List image = await screenshotController.capture() ?? Uint8List(0);
+
+    await Navigator.of(context).push(
+      CupertinoPageRoute(
+        builder: (context) => EvaluateScreen(
+          image: image,
+        ),
+      ),
+    );
+    clear();
   }
 
   Future<void> clear() async {
