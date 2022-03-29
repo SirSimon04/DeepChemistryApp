@@ -6,7 +6,7 @@ class Loader extends StatelessWidget {
       this.opacity = 0.5,
       this.dismissibles = false,
       this.color = Colors.black,
-      this.loadingTxt = 'Loading...'})
+      this.loadingTxt = 'Hochladen...'})
       : super(key: key);
 
   final double opacity;
@@ -29,7 +29,7 @@ class Loader extends StatelessWidget {
         ),
         Center(
           child: Padding(
-            padding: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.fromLTRB(12, 120, 12, 12),
             child: Text(
               loadingTxt,
               textAlign: TextAlign.center,

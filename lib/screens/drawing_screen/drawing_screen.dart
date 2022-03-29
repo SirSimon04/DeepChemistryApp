@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_deep_chemistry/screens/drawing_screen/components/custom_draw_widget.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import '../../widgets/loader.dart';
 import 'components/drawn_line.dart';
 import 'components/sketcher.dart';
 import "package:screenshot/screenshot.dart";
@@ -22,7 +23,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
 
   String curImage = "assets/formulas/2-Methylbutan.jpg";
 
-  bool isLoading = false;
+  bool _isLoading = false;
 
   List<String> formulas = [
     "assets/formulas/2-Methylbutan.jpg",
@@ -84,31 +85,44 @@ class _DrawingScreenState extends State<DrawingScreen> {
         child: const Icon(Icons.save),
         onPressed: () async {
           //TODO: add loading indicator
+          setState(() {
+            _isLoading = true;
+          });
           await _customDrawingWidgetStateKey.currentState!.save();
           updateImage();
+          setState(() {
+            _isLoading = false;
+          });
         },
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Expanded(
-              child: Image(
-                image: AssetImage(curImage),
-              ),
-            ),
-            Expanded(
-              child: AspectRatio(
-                aspectRatio: 1,
-                child: CustomDrawingWidget(
-                  key: _customDrawingWidgetStateKey,
-                  curImage: curImage.substring(16),
+      body: Stack(
+        children: [
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: Image(
+                    image: AssetImage(curImage),
+                  ),
                 ),
-              ),
+                Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 1,
+                    child: CustomDrawingWidget(
+                      key: _customDrawingWidgetStateKey,
+                      curImage: curImage.substring(16),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+          Container(
+            child: _isLoading ? const Loader() : Container(),
+          ),
+        ],
       ),
     );
   }
