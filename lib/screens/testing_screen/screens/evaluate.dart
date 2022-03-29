@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class EvaluateScreen extends StatefulWidget {
   final Uint8List image;
@@ -12,15 +13,18 @@ class EvaluateScreen extends StatefulWidget {
 }
 
 class _EvaluateScreenState extends State<EvaluateScreen> {
+  // MemoryImage _image = MemoryImage(widget.image);
+  //Todo: Evaluate what it might be, ideally with tensorflow lite model
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Ergebnis",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+    return PlatformScaffold(
+      // appBar: AppBar(
+      //   title: const Text(
+      //     "Ergebnis",
+      //     style: TextStyle(color: Colors.white),
+      //   ),
+      // ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_deep_chemistry/screens/drawing_screen/components/custom_draw_widget.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class TestingScreen extends StatefulWidget {
   const TestingScreen({Key? key}) : super(key: key);
@@ -13,14 +14,14 @@ class _TestingScreenState extends State<TestingScreen> {
       GlobalKey();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text(
-          "Ausprobieren",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
+    return PlatformScaffold(
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   title: const Text(
+      //     "Ausprobieren",
+      //     style: TextStyle(color: Colors.white),
+      //   ),
+      // ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [

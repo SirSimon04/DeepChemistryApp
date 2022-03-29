@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_deep_chemistry/screens/drawing_screen/drawing_screen.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import 'screens/testing_screen/testing_screen.dart';
 
@@ -12,11 +14,19 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "DeepChemistry",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: const MyApp(),
+    return PlatformWidget(
+      cupertino: (_, __) => const CupertinoApp(
+        title: "DeepChemistry",
+        debugShowCheckedModeBanner: false,
+        theme: CupertinoThemeData(brightness: Brightness.dark),
+        home: MyApp(),
+      ),
+      material: (_, __) => MaterialApp(
+        title: "DeepChemistry",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.dark(),
+        home: const MyApp(),
+      ),
     );
   }
 }
@@ -35,19 +45,29 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
+    return PlatformScaffold(
+      bottomNavBar: PlatformNavBar(
+        items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.border_color),
+            icon: Icon(
+              context.platformIcon(
+                material: Icons.border_color,
+                cupertino: CupertinoIcons.pencil,
+              ),
+            ),
             label: "Zeichnen",
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.image),
+            icon: Icon(
+              context.platformIcon(
+                material: Icons.image,
+                cupertino: CupertinoIcons.photo,
+              ),
+            ),
             label: "Testen",
           ),
         ],
-        onTap: _onItemTapped,
+        itemChanged: _onItemTapped,
         currentIndex: _selectedIndex,
       ),
       body: _pages[_selectedIndex],
