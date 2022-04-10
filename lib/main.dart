@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_deep_chemistry/screens/drawing_screen/drawing_screen.dart';
+import 'package:flutter_deep_chemistry/screens/info_screen/info_screen.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import 'screens/testing_screen/testing_screen.dart';
@@ -41,7 +42,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _pages = [DrawingScreen(), TestingScreen()];
+  static const List<Widget> _pages = [DrawingScreen(), InfoScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -60,12 +61,21 @@ class _MyAppState extends State<MyApp> {
           BottomNavigationBarItem(
             icon: Icon(
               context.platformIcon(
-                material: Icons.image,
-                cupertino: CupertinoIcons.photo,
+                material: Icons.info,
+                cupertino: CupertinoIcons.info_circle_fill,
               ),
             ),
-            label: "Testen",
+            label: "Info",
           ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(
+          //     context.platformIcon(
+          //       material: Icons.image,
+          //       cupertino: CupertinoIcons.photo,
+          //     ),
+          //   ),
+          //   label: "Testen",
+          // ),
         ],
         itemChanged: _onItemTapped,
         currentIndex: _selectedIndex,
