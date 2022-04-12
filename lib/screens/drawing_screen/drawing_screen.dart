@@ -131,6 +131,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
                   _isLoading = true;
                 });
                 await _customDrawingWidgetStateKey.currentState!.save();
+                updateImage();
                 setState(() {
                   _isLoading = false;
                 });
