@@ -84,6 +84,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
       ),
       material: (_, __) => MaterialScaffoldData(
         floatingActionButton: FloatingActionButton(
+          backgroundColor: const Color(0xFF2CE8F5),
           child: const Icon(Icons.save),
           onPressed: () async {
             setState(() {
@@ -126,6 +127,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
             bottom: 95,
             right: 10,
             child: FloatingActionButton(
+              backgroundColor: const Color(0xFF2CE8F5),
               onPressed: () async {
                 setState(() {
                   _isLoading = true;

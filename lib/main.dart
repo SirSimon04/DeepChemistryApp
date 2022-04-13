@@ -19,13 +19,16 @@ class App extends StatelessWidget {
       cupertino: (_, __) => const CupertinoApp(
         title: "DeepChemistry",
         debugShowCheckedModeBanner: false,
-        theme: CupertinoThemeData(brightness: Brightness.dark),
+        theme: CupertinoThemeData(
+          brightness: Brightness.dark,
+          primaryColor: Color(0xFF2CE8F5),
+        ),
         home: MyApp(),
       ),
       material: (_, __) => MaterialApp(
         title: "DeepChemistry",
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
+        theme: ThemeData.dark().copyWith(primaryColor: const Color(0xFF2CE8F5)),
         home: const MyApp(),
       ),
     );
