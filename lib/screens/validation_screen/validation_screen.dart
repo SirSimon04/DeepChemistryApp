@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_deep_chemistry/screens/validation_screen/components/validation.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,7 +18,7 @@ class _ValidationScreenState extends State<ValidationScreen> {
     final prefs = await SharedPreferences.getInstance();
 
     bool? loggedIn = prefs.getBool("loggedIn");
-    print(loggedIn);
+
     if (loggedIn == true) {
       setState(() {
         loggedIn = true;
@@ -42,12 +43,7 @@ class _ValidationScreenState extends State<ValidationScreen> {
         title: const Text("Überprüfen"),
       ),
       body: loggedIn
-          ? const Center(
-              child: Text(
-                "Validator",
-                style: TextStyle(color: Colors.white),
-              ),
-            )
+          ? const Validator()
           : Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,7 +54,6 @@ class _ValidationScreenState extends State<ValidationScreen> {
                     if (text == "Test1234") {
                       final prefs = await SharedPreferences.getInstance();
                       await prefs.setBool("loggedIn", true);
-                      print("loggedIn" + prefs.getBool("loggedIn").toString());
                       setState(() {
                         loggedIn = true;
                       });
