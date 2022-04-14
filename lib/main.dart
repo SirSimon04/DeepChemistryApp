@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_deep_chemistry/screens/drawing_screen/drawing_screen.dart';
 import 'package:flutter_deep_chemistry/screens/info_screen/info_screen.dart';
+import 'package:flutter_deep_chemistry/screens/validation_screen/validation_screen.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 import 'screens/testing_screen/testing_screen.dart';
@@ -45,7 +46,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _pages = [DrawingScreen(), InfoScreen()];
+  static const List<Widget> _pages = [
+    DrawingScreen(),
+    InfoScreen(),
+    ValidationScreen()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +74,15 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             label: "Info",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              context.platformIcon(
+                material: Icons.info,
+                cupertino: CupertinoIcons.check_mark_circled_solid,
+              ),
+            ),
+            label: "Überprüfen",
           ),
           // BottomNavigationBarItem(
           //   icon: Icon(
