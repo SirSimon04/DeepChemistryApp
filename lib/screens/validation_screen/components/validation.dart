@@ -85,12 +85,15 @@ class ValidatorCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white10,
       child: Column(
         children: [
           ListTile(
             title: Text(
               name,
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headline5!.copyWith(
+                    color: Colors.white,
+                  ),
             ),
           ),
           Expanded(
