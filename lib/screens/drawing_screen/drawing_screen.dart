@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_deep_chemistry/screens/drawing_screen/components/custom_draw_widget.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import '../../widgets/loader.dart';
+import 'dart:io' show Platform;
 
 class DrawingScreen extends StatefulWidget {
   const DrawingScreen({Key? key}) : super(key: key);
@@ -123,29 +124,31 @@ class _DrawingScreenState extends State<DrawingScreen> {
               ],
             ),
           ),
-          Positioned(
-            bottom: 95,
-            right: 10,
-            child: FloatingActionButton(
-              backgroundColor: const Color(0xFF2CE8F5),
-              onPressed: () async {
-                setState(() {
-                  _isLoading = true;
-                });
-                await _customDrawingWidgetStateKey.currentState!.save();
-                updateImage();
-                setState(() {
-                  _isLoading = false;
-                });
-              },
-              child: Icon(
-                context.platformIcon(
-                  material: Icons.save,
-                  cupertino: CupertinoIcons.cloud_upload_fill,
-                ),
-              ),
-            ),
-          ),
+          Platform.isIOS
+              ? Positioned(
+                  bottom: 95,
+                  right: 10,
+                  child: FloatingActionButton(
+                    backgroundColor: const Color(0xFF2CE8F5),
+                    onPressed: () async {
+                      setState(() {
+                        _isLoading = true;
+                      });
+                      await _customDrawingWidgetStateKey.currentState!.save();
+                      updateImage();
+                      setState(() {
+                        _isLoading = false;
+                      });
+                    },
+                    child: Icon(
+                      context.platformIcon(
+                        material: Icons.save,
+                        cupertino: CupertinoIcons.cloud_upload_fill,
+                      ),
+                    ),
+                  ),
+                )
+              : Container(),
           Container(
             child: _isLoading ? const Loader() : Container(),
           ),
