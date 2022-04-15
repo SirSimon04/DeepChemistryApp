@@ -37,12 +37,12 @@ class _DrawingScreenState extends State<DrawingScreen> {
     "assets/formulas/24-Dimethylpentan.png",
     "assets/formulas/33-Dimethylpentan.png",
     "assets/formulas/223-Trimethylbutan.png",
-    "assets/formulas/Butan.jpg",
-    "assets/formulas/Ethan.jpg",
-    "assets/formulas/Heptan.jpg",
-    "assets/formulas/Hexan.jpg",
-    "assets/formulas/Pentan.jpg",
-    "assets/formulas/Propan.jpg",
+    "assets/formulas/Butan.png",
+    "assets/formulas/Ethan.png",
+    "assets/formulas/Heptan.png",
+    "assets/formulas/Hexan.png",
+    "assets/formulas/Pentan.png",
+    "assets/formulas/Propan.png",
   ];
 
   void updateImage() {
