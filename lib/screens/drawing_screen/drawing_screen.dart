@@ -22,21 +22,21 @@ class _DrawingScreenState extends State<DrawingScreen> {
   bool _isLoading = false;
 
   List<String> formulas = [
-    "assets/formulas/2-Methylbutan.jpg",
-    "assets/formulas/2-Methylhexan.jpg",
-    "assets/formulas/2-Methylpentan.jpg",
-    "assets/formulas/2-Methylpropan.jpg",
-    "assets/formulas/3-Ethylpentan.jpg",
-    "assets/formulas/3-Methylhexan.jpg",
-    "assets/formulas/3-Methylpentan.jpg",
-    "assets/formulas/22-Dimethylbutan.jpg",
-    "assets/formulas/22-Dimethylpentan.jpg",
-    "assets/formulas/22-Dimethylpropan.jpg",
-    "assets/formulas/23-Dimethylbutan.jpg",
-    "assets/formulas/23-Dimethylpentan.jpg",
-    "assets/formulas/24-Dimethylpentan.jpg",
-    "assets/formulas/33-Dimethylpentan.jpg",
-    "assets/formulas/223-Trimethylbutan.jpg",
+    "assets/new_formulas/2-Methylbutan.png",
+    "assets/new_formulas/2-Methylhexan.png",
+    "assets/formulas/2-Methylpentan.png",
+    "assets/formulas/2-Methylpropan.png",
+    "assets/formulas/3-Ethylpentan.png",
+    "assets/formulas/3-Methylhexan.png",
+    "assets/formulas/3-Methylpentan.png",
+    "assets/formulas/22-Dimethylbutan.png",
+    "assets/formulas/22-Dimethylpentan.png",
+    "assets/formulas/22-Dimethylpropan.png",
+    "assets/formulas/23-Dimethylbutan.png",
+    "assets/formulas/23-Dimethylpentan.png",
+    "assets/formulas/24-Dimethylpentan.png",
+    "assets/formulas/33-Dimethylpentan.png",
+    "assets/formulas/223-Trimethylbutan.png",
     "assets/formulas/Butan.jpg",
     "assets/formulas/Ethan.jpg",
     "assets/formulas/Heptan.jpg",
@@ -64,6 +64,7 @@ class _DrawingScreenState extends State<DrawingScreen> {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
+      backgroundColor: Colors.grey,
       appBar: PlatformAppBar(
         title: const Text("Zeichne etwas"),
         trailingActions: [
