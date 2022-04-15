@@ -105,8 +105,8 @@ class _DrawingScreenState extends State<DrawingScreen> {
         children: [
           Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: Image(
@@ -122,6 +122,9 @@ class _DrawingScreenState extends State<DrawingScreen> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 80,
+                )
               ],
             ),
           ),

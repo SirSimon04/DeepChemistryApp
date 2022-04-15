@@ -95,7 +95,7 @@ class CustomDrawingWidgetState extends State<CustomDrawingWidget> {
         child: Container(
           color: Colors.transparent,
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
+          height: MediaQuery.of(context).size.width,
           child: StreamBuilder<DrawnLine>(
             stream: currentLineStreamController.stream,
             builder: (context, snapshot) {
