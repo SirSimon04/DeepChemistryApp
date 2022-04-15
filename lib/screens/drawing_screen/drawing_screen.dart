@@ -22,8 +22,8 @@ class _DrawingScreenState extends State<DrawingScreen> {
   bool _isLoading = false;
 
   List<String> formulas = [
-    "assets/new_formulas/2-Methylbutan.png",
-    "assets/new_formulas/2-Methylhexan.png",
+    "assets/formulas/2-Methylbutan.png",
+    "assets/formulas/2-Methylhexan.png",
     "assets/formulas/2-Methylpentan.png",
     "assets/formulas/2-Methylpropan.png",
     "assets/formulas/3-Ethylpentan.png",
